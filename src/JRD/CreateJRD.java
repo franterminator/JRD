@@ -10,12 +10,17 @@ package JRD;
  * @author Fran
  */
 public class CreateJRD {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    
+    public writeJRD (List<Player> players, Storage str, Path path)  {
+        BufferedWriter bw = new BufferedWriter(new PrintWriter());
+        
+        for(Player player: players) {
+            
+        }
     }
+    
+    
+    
+    
     
 }
