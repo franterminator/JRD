@@ -6,19 +6,55 @@
 
 package GUI;
 
+import JRD.*;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Fran
  */
 public class ChangeDirectories extends javax.swing.JFrame {
-
+    JFileChooser fc;
+    File storage;
+    File FranDirectory;
+    File JandroDirectory;
+    List<Player> players = new ArrayList<>();
+    Storage str;
     /**
      * Creates new form ChangeDirectories
      */
     public ChangeDirectories() {
         initComponents();
+        
+        // Frame
         setLocationRelativeTo(null);
+        setTitle("Creating JRD...");
+        
+        // jFileChooser
+        fc = new JFileChooser();
+        fc.setMultiSelectionEnabled(false);
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setDialogTitle("Select a directory");
+        fc.setApproveButtonText("This shit!");
+        
+        try {
+            // Players
+            players.add(new Player("Fran", 1));
+            players.add(new Player("Jandro",2));
+        } catch (Exception ex) {
+            Logger.getLogger(ChangeDirectories.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,11 +68,15 @@ public class ChangeDirectories extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonStorage = new javax.swing.JButton();
+        jButtonFran = new javax.swing.JButton();
+        jButtonJandro = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextName = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,59 +86,168 @@ public class ChangeDirectories extends javax.swing.JFrame {
 
         jLabel3.setText("JANDRO SAVE");
 
-        jLabel4.setText("JRD");
+        jButtonStorage.setText("Browse...");
+        jButtonStorage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStorageActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("jButton1");
+        jButtonFran.setText("Browse...");
+        jButtonFran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFranActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jButtonJandro.setText("Browse...");
+        jButtonJandro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonJandroActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        jButton4.setText("Create JRD");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        jScrollPane1.setAutoscrolls(true);
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+        jTextArea1.setEditable(false);
+
+        jLabel4.setText("JRD name");
+
+        jScrollPane2.setViewportView(jTextName);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonStorage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonFran, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonJandro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(102, 102, 102))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonStorage))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonFran))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonJandro))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton4))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonStorageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStorageActionPerformed
+        // Pressed the storage button
+        fc.showOpenDialog(null);
+        
+        storage = fc.getSelectedFile();
+        jTextArea1.append("Storage:\n");
+        jTextArea1.append(storage.toString()+'\n');
+        
+    }//GEN-LAST:event_jButtonStorageActionPerformed
+
+    private void jButtonFranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFranActionPerformed
+        // Pressed the fran button
+        fc.showOpenDialog(null);
+        
+        FranDirectory = fc.getSelectedFile();
+        jTextArea1.append("Fran Directory:\n");
+        jTextArea1.append(FranDirectory.toString()+'\n');
+        
+    }//GEN-LAST:event_jButtonFranActionPerformed
+
+    private void jButtonJandroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJandroActionPerformed
+        // Pressed the jandro button
+        fc.showOpenDialog(null);
+        
+        JandroDirectory = fc.getSelectedFile();
+        jTextArea1.append("Jandro Directory:\n");
+        jTextArea1.append(JandroDirectory.toString()+'\n');
+    }//GEN-LAST:event_jButtonJandroActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Check is all files haved set
+        if (storage == null) {
+            JOptionPane.showMessageDialog(null,"You have to set the storage directory.",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (FranDirectory == null) {
+            JOptionPane.showMessageDialog(null,"You have to set the fran directory.",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (JandroDirectory == null) {
+            JOptionPane.showMessageDialog(null,"You have to set the storage directory.",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        jTextArea1.append("Name of JRD:\n");
+        jTextArea1.append(jTextName.getText()+'\n');
+        
+        // Ask for the last player
+        String[] options = {"No body","Fran","Jandro"};
+        int id = JOptionPane.showOptionDialog(null, "Who is the last player?", "Last Player?",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, options[1]);
+        for(Player pl:players)
+            if(pl.getId()==id)
+                pl.setCurrentTime();
+        // Create the JRD
+        Path path = Paths.get(CopyFiles.PARENTDIRECTORY.toString(),jTextName.getText());
+        CreateJRD.writeJRD(players, str, path);
+        
+        // Final
+        JOptionPane.showMessageDialog(null, "The JRD was sucesfully created.");
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,13 +285,17 @@ public class ChangeDirectories extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonFran;
+    private javax.swing.JButton jButtonJandro;
+    private javax.swing.JButton jButtonStorage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextPane jTextName;
     // End of variables declaration//GEN-END:variables
 }
