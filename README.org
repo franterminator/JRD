@@ -1,15 +1,4 @@
 # JRD
-* Description
-It's a repository of a java program designed to change the save files from one
-folder to another. That's useful in the new kind of games which just has one player
-profile and you can't control your saves (the game create autosaves).
-* Usage
-The program is made to windows users. You don't need informatic knowlegde.
-Just click in the buttons
+It's a repository about a programa in java that reads text files. This text files hve the name of JRD (java readable directories) and containt the directory save games.
 * Installation
-It's no need.
-However, you need a java version above the 7.0
-* Autor
-franterminator
-* Version
-1.1
+* 
