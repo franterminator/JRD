@@ -11,7 +11,7 @@ It's a repository about a programa in java that reads text files. This text file
 JRD is just text file. This kind of file contents the information about the 
 save folders of the players. Besides other information of the players.
 * Installation
-It's no need.
+You have to create a folder called JRD in the directory you have the java src.
 However, you need a java version above the 7.0
 * Autor
 franterminator
