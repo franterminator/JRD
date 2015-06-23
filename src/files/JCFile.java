@@ -7,6 +7,7 @@
 package files;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -63,6 +64,39 @@ public class JCFile {
         }catch (IOException ioe){
             ioe.printStackTrace();
         }//end try
+    }//end method copyFyles
+    
+    //This class just contain the method copyFiles
+    public static void copyPaths (Path path1, Path path2){
+        // Creating files
+        File d1 = path1.toFile();
+        File d2 = path2.toFile();
+        
+        //checks for the console
+        System.out.println("->Executing copyDirectories");
+        
+        if(!d1.isDirectory()){
+            //We will search the files and then move them recursive
+            copyFyles(d1, d2);
+        }//end if directory
+        else{
+            //Copy d1 to d2, as they are files
+            
+            //Creating the directory d2 if it does not exist yet.
+            if(!d2.exists()){
+                d2.mkdir();
+                System.out.println("Creating directory: "+d2);
+            }//end if creating directori
+            
+            /*  1. Obtein the list of the existing files in the directory
+                2. Call recursivily this method to copy each of the files           
+            */
+            System.out.println("Searching in the directory: "+d1);
+            String files[] = d1.list();
+            for(int i=0; i<files.length; i++)
+                copyDirectories(new File(d1,files[i]), new File(d2,files[i]));
+            System.out.println("We copied the files sucesfully");
+        }//end else files
     }//end method copyFyles
     
     public static void main (String args[]){

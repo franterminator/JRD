@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Fran
  */
-public class ChangeDirectories extends javax.swing.JFrame {
+public class CreateGUI extends javax.swing.JFrame {
     JFileChooser fc;
     File storage;
     File FranDirectory;
@@ -31,7 +31,7 @@ public class ChangeDirectories extends javax.swing.JFrame {
     /**
      * Creates new form ChangeDirectories
      */
-    public ChangeDirectories() {
+    public CreateGUI() {
         initComponents();
         
         // Frame
@@ -50,7 +50,7 @@ public class ChangeDirectories extends javax.swing.JFrame {
             players.add(new Player("Fran", 1));
             players.add(new Player("Jandro",2));
         } catch (Exception ex) {
-            Logger.getLogger(ChangeDirectories.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -225,28 +225,36 @@ public class ChangeDirectories extends javax.swing.JFrame {
             return;
         }
         if (JandroDirectory == null) {
-            JOptionPane.showMessageDialog(null,"You have to set the storage directory.",
+            JOptionPane.showMessageDialog(null,"You have to set the jandro directory.",
                     "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         jTextArea1.append("Name of JRD:\n");
         jTextArea1.append(jTextName.getText()+'\n');
         
+        // Set the save directories to the players and the storage
+        for(Player player:players) {
+            if(player.getId()==1)
+                player.setPath(FranDirectory.toPath());
+            if(player.getId()==2)
+                player.setPath(JandroDirectory.toPath());
+        }
+        str = new Storage(storage.toPath());
+        
         // Ask for the last player
         String[] options = {"No body","Fran","Jandro"};
         int id = JOptionPane.showOptionDialog(null, "Who is the last player?", "Last Player?",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[1]);
-        for(Player pl:players)
-            if(pl.getId()==id)
-                pl.setCurrentTime();
+
         // Create the JRD
-        Path path = Paths.get(CopyFiles.PARENTDIRECTORY.toString(),jTextName.getText());
-        CreateJRD.writeJRD(players, str, path);
+        String path = CopyFiles.PARENTDIRECTORY.getAbsolutePath();
+        path = path.concat("\\"+jTextName.getText()+".jrd");
+        CreateJRD.writeJRD(players, str, Paths.get(path));
+        JOptionPane.showMessageDialog(null, "The JRD was sucesfully created.");
         
         // Final
-        JOptionPane.showMessageDialog(null, "The JRD was sucesfully created.");
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -266,20 +274,23 @@ public class ChangeDirectories extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangeDirectories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangeDirectories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangeDirectories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangeDirectories.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChangeDirectories().setVisible(true);
+                new CreateGUI().setVisible(true);
             }
         });
     }

@@ -12,17 +12,17 @@ import java.io.File;
  *
  * @author Fran
  */
-public class Player {
+public class PlayerTest {
     //fields
     String name;
     File playerFold;
 
-    public Player(String name, File playerFold) {
+    public PlayerTest(String name, File playerFold) {
         this.name = name;
         this.playerFold = playerFold;
     }
 
-    public Player() {
+    public PlayerTest() {
     }
 
     public void setName(String name) {

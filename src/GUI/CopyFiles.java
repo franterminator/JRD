@@ -66,7 +66,9 @@ public class CopyFiles extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,7 +167,7 @@ public class CopyFiles extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_SPACE, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Change Directories");
+        jMenuItem1.setText("Create JRD");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -173,9 +175,32 @@ public class CopyFiles extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem3.setText("Delete JRD");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Refresh");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem2.setText("Refresh GUI");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -299,9 +324,8 @@ public class CopyFiles extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // Open new JFrame
-        ChangeDirectories chd = new ChangeDirectories();
+        CreateGUI chd = new CreateGUI();
         chd.setVisible(true);
-        
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -311,7 +335,12 @@ public class CopyFiles extends javax.swing.JFrame {
             // Parent directory
             if (PARENTDIRECTORY == null) JOptionPane.showMessageDialog(null, 
                     "El JRD esta incompleto","JRD Warning", JOptionPane.WARNING_MESSAGE);
+            
+            // File selected
+            File f = new File(PARENTDIRECTORY+"//"+ComboBox.getSelectedItem());
+            if (!f.exists()) return;
 
+            
             // Reading first file
             String texto = TokenJRD.readFile(PARENTDIRECTORY+"//"+ComboBox.getSelectedItem(), 
                     StandardCharsets.ISO_8859_1);
@@ -338,6 +367,30 @@ public class CopyFiles extends javax.swing.JFrame {
             Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ComboBoxActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // Dir files list
+        String files[] = PARENTDIRECTORY.list();
+        // Set combo box items
+        ComboBox.removeAllItems();
+        for (String f : files) 
+            ComboBox.addItem(f);
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // JOptionPane to select the file to delete
+        String files[] = PARENTDIRECTORY.list();
+        int id = JOptionPane.showOptionDialog(null, "Select the file to delete.", "Select",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, files, files[0]);
+        
+        // Delete the file selected
+        JDFile.deleteFile(new File(PARENTDIRECTORY.toString()+"\\"+files[id]));
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     
     public static void sleep (int i) throws InterruptedException{
             System.out.println("       ****Waiting");
@@ -391,6 +444,8 @@ public class CopyFiles extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;

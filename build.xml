@@ -72,7 +72,10 @@
     -->
     <target name="-post-jar">
             <echo file="${dist.dir}/run.bat">
-                java -jar "C:\Documents and Settings\ABAJO\Mis documentos\NetBeansProjects\JCopyFiles\dist\${application.title}.jar"
+                prompt $G
+                echo Loading the jar, please wait a few seconds
+                java -jar ${ant.project.name}.jar
+                pause
             </echo>
         </target>
 </project>

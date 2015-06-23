@@ -7,6 +7,7 @@
 package files;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -19,6 +20,36 @@ public class JDFile {
         //checks for the console
         System.out.println("->Executing deleteDirectory");
         
+        
+        if(!d.isDirectory()){
+            deleteFile(d);
+        }//end if the argument is a directory
+        else{
+            //checks for the console
+            System.out.println("....Deleting directory: "+d);
+            
+            String files[] = d.list();
+           
+            for(int i=0; i<files.length; i++){
+                deleteDirectoryFiles(new File(d,files[i]));
+                try{
+                    File directoryToDelete = new File(d,files[i]);
+                    directoryToDelete.delete();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+            }//end for recursive call
+        }
+    }//end deleteDirectoryFiles method
+    
+    public static void deleteDirectoryPath (Path path){
+        //checks for the console
+        System.out.println("->Executing deleteDirectory");
+        
+        // Creating file
+        File d = path.toFile();
         
         if(!d.isDirectory()){
             deleteFile(d);

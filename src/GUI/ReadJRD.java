@@ -16,9 +16,9 @@ import java.util.Date;
  *
  * @author Fran
  */
-public class txtPlayer {
+public class ReadJRD {
 
-    public static void refreshTxt(Player player,File f){
+    public static void refreshTxt(PlayerTest player,File f){
         //checks for the console
         System.out.println("->Executing refreshTxt");
         
@@ -63,7 +63,7 @@ public class txtPlayer {
     public static void main(String[] args) {
         // TODO code application logic here
         File f = new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\Player.jrd");
-        Player fran = new Player("Fran",f);
+        PlayerTest fran = new PlayerTest("Fran",f);
         
         refreshTxt(fran, f);
         String data [];

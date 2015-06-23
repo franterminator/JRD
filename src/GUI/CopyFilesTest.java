@@ -16,10 +16,10 @@ import javax.swing.JOptionPane;
  * @author Fran
  */
 public class CopyFilesTest extends javax.swing.JFrame {
-    Player lastPlayer;
-    Player selectedPlayer;
-    Player fran;
-    Player jandro;
+    PlayerTest lastPlayer;
+    PlayerTest selectedPlayer;
+    PlayerTest fran;
+    PlayerTest jandro;
     File storage;
     File JRD;
 
@@ -31,12 +31,12 @@ public class CopyFilesTest extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         // <editor-fold defaultstate="collapsed" desc="ME FALTAN DATOS"> 
         //me falta añadir los datos necesarios
-        fran = new Player("Fran",new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\Fran Save"));
-        jandro = new Player("Jandro",new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\Jandro Save"));
+        fran = new PlayerTest("Fran",new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\Fran Save"));
+        jandro = new PlayerTest("Jandro",new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\Jandro Save"));
         storage = new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\saves");
         JRD = new File("H:\\Archivos de programa\\Star Wars Knight Old Republic\\Player.jrd");
         
-        String data [] = txtPlayer.getData(JRD);
+        String data [] = ReadJRD.getData(JRD);
         jLabel5.setText(data[0]);
         modificacionLabel.setText(data[1]);
         if(fran.name.equals(data[0])){
@@ -179,7 +179,7 @@ public class CopyFilesTest extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void FRANButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FRANButtonActionPerformed
-        //selected Player equals fran
+        //selected PlayerTest equals fran
         selectedPlayer = fran;
         
         //checks for the console
@@ -197,8 +197,8 @@ public class CopyFilesTest extends javax.swing.JFrame {
         // 4. copie the files from the SELECTED PLAYER to STORAGE
         JCFile.copyDirectories(selectedPlayer.playerFold, storage);
         
-        // 5. change the Player.jrd
-        txtPlayer.refreshTxt(selectedPlayer, JRD);
+        // 5. change the PlayerTest.jrd
+        ReadJRD.refreshTxt(selectedPlayer, JRD);
         
         // 6. execute the game
         System.out.println("->Executing the game....");
@@ -213,7 +213,7 @@ public class CopyFilesTest extends javax.swing.JFrame {
     }//GEN-LAST:event_FRANButtonActionPerformed
 
     private void JANDROButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JANDROButtonActionPerformed
-        //selected Player equals fran
+        //selected PlayerTest equals fran
         selectedPlayer = jandro;
         
         //checks for the console
@@ -231,8 +231,8 @@ public class CopyFilesTest extends javax.swing.JFrame {
         // 4. copie the files from the SELECTED PLAYER to STORAGE
         JCFile.copyDirectories(selectedPlayer.playerFold, storage);
         
-        // 5. change the Player.jrd
-        txtPlayer.refreshTxt(selectedPlayer, JRD);
+        // 5. change the PlayerTest.jrd
+        ReadJRD.refreshTxt(selectedPlayer, JRD);
         
         // 6. execute the game
         System.out.println("->Executing the game....");
