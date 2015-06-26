@@ -280,7 +280,7 @@ public class CopyFiles extends javax.swing.JFrame {
             
             // 5. change the JRD
             players.get(0).setCurrentTime();
-            CreateJRD.writeJRD(players, str, Paths.get("JRD//Default.jrd"));
+            CreateJRD.writeJRD(players, str, Paths.get("JRD//"+ComboBox.getSelectedItem()));
             
             // 6. Change the GUI labels
             TextLastPlayer.setText(players.get(0).getName());
@@ -315,7 +315,7 @@ public class CopyFiles extends javax.swing.JFrame {
         
         // 5. change the JRD
         players.get(1).setCurrentTime();
-        CreateJRD.writeJRD(players, str, Paths.get("JRD//Default.jrd"));
+        CreateJRD.writeJRD(players, str, Paths.get("JRD//"+ComboBox.getSelectedItem()));
         
         // 6. Change the GUI labels
         TextLastPlayer.setText(players.get(1).getName()); 
